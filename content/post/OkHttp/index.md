@@ -57,4 +57,3 @@ val responseData = response.body?.string()
 其OkHttp的基本请求流程就是创建OkHttpClient()、Request()、Call(),接着调用OkHttpClient()的newCall().execute()/enqueue()来请求数据并获取数据
 ![Process](OkHttpProcess.png) ![Process2](OkHttpProcess2.jpg)
 
-[欢迎访问我的博客](https://WAN21411.github.io)
