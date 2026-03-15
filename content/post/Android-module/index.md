@@ -30,13 +30,15 @@ Activity可以想象成手机的每一个“页面”。比如当你打开一个
 
 ### 2.Activity的生命周期
 Activity的生命周期包括以下几个关键方法：
-    **onCreate()**: Activity被创建调用。比如，当你点击QQ时，系统会创建QQ的MainActivity，并且调用OnCreate()这个方法。通常会在这里初始化界面和变量，这时候我们看到的界面是空白的。
-    **onStart()**：Activity即将可见时调用。比如，QQ的首页即将显示在屏幕上。
-    **onResume()**：Activity获得焦点，用户可以与之交互调用。比如，QQ可以完全显示出来，用户可以点击各种按钮来进行操作。
-    **onPuase()**: Activity失去焦点时调用。比如，用户按了Home键回到桌面或者跳转到了另外一个界面。
-    **onStop()**：Activity不再可见时调用，比如，你点击文章详情页进入到了文章里面。QQ的首页面被完全覆盖。
-    **onRestart()**：Activity从停止状态重新启动时调用。首页Activity从后台回到前台。
-    **onDestory()**：Activity被销毁时调用。比如，用户关闭了页面。
+    
+
+**onCreate()**: Activity被创建调用。比如，当你点击QQ时，系统会创建QQ的MainActivity，并且调用OnCreate()这个方法。通常会在这里初始化界面和变量，这时候我们看到的界面是空白的。
+**onStart()**：Activity即将可见时调用。比如，QQ的首页即将显示在屏幕上。
+**onResume()**：Activity获得焦点，用户可以与之交互调用。比如，QQ可以完全显示出来，用户可以点击各种按钮来进行操作。
+**onPuase()**: Activity失去焦点时调用。比如，用户按了Home键回到桌面或者跳转到了另外一个界面。
+**onStop()**：Activity不再可见时调用，比如，你点击文章详情页进入到了文章里面。QQ的首页面被完全覆盖。
+**onRestart()**：Activity从停止状态重新启动时调用。首页Activity从后台回到前台。
+**onDestory()**：Activity被销毁时调用。比如，用户关闭了页面。
 
 ![Activity-Cycle](Activity-cycle.png)
 
