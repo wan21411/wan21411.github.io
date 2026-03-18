@@ -97,8 +97,24 @@ Service有两种类型：
 
 ![Service](service2.png)
 
-## 3.Service示例
+### 3.Service示例
 
 ![Startde](service3.png)
 
 ![Bound](service4.png)
+
+## BroadCaseReceiver（广播接收器）
+
+![BroadCaseReceiver](broadcasereceiver1.png)
+
+### 1.什么是BroadCaseReceiver
+
+可以把广播接收器想象成一个“收音机”，它的作用是监听系统或应用发出的“广播信息”，并在收到消息后执行相应的操作。
+
+    比如：
+    ·手机电量过低，系统检测到了，会发出一个“低电量“的广播，广播接收器可以接收到这个消息并提醒你充电。
+
+    ·你下载了一个App，下载完成之后，系统会发出一个“下载完成的广播，广播接收器接收到这个消息之后会提醒你进行安装。
+
+简而言之，广播接收器就是用来**接收和处理广播消息**的组件。
+
