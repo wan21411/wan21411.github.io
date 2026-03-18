@@ -12,12 +12,12 @@ build:
 
 # Android四大组件学习
 
-Android的四大组件包括：Activity（活动）、Server（服务）、BroadcaseReceiver（广播接收器）、ContentProvider（内容提供者）。
+Android的四大组件包括：Activity（活动）、Service（服务）、BroadcaseReceiver（广播接收器）、ContentProvider（内容提供者）。
 
 ![module](module1.png)
 
 1. **Activity**：通俗来讲其实就是App上面用户看到的每个界面，Activity组件负责**界面展示、处理用户交互、进行数据传递**等
-1. **Server**：无界面的后台组件，用于执行**长期执行**的操作。就比如说应用商城后台下载的东西、后台播放网易云音乐等
+1. **Service**：无界面的后台组件，用于执行**长期执行**的操作。就比如说应用商城后台下载的东西、后台播放网易云音乐等
 1. **BroadcaseReceiver**：手机里的“消息喇叭”，用于**监听系统或者应用发出的全局事件**的组件，比如说网络状态的变化，充电状态的变化等
 1. **ContentProvider**：应用间的“数据共享存储桥”，是**管理跨应用访问**的组件，通过URL来标识数据，比如说我们的手机通讯录是不是可以被多个应用访问读取
 
@@ -67,3 +67,38 @@ Activity的生命周期包括以下几个关键方法：
 
 ### 3.Activity的生命周期示例
 ![csdn-小梁不秃捏](Activity-cycle2.png)
+
+## Servive(服务)
+
+### 1.什么是Service
+可以把Service想象成一个“后台默默无闻的打工人”，它没有UI界面，默默的在后台干活，比如播放音乐、下载文件 、处理网络请求等。即使你退出了App，没有杀死后台，那么Service还可以继续运行。
+![service](service1.jpg)
+
+简而言之，Service就是一个**无界面的后台组件**，用来执行需要**长期运行**的操作。
+
+### 2.Service的类型
+Service有两种类型：
+
+1. **Started Service（启动式服务）**
+
+* 特点：通过startService()启动，会一直运行，直到任务完成或调用stopSelf()
+
+* 适用场景：执行一次性任务，比如下载文件、播放音乐
+
+* 生命周期：onCreate()->onStartCommand()->onDestroy()
+
+2. **Bound Service（绑定式服务）**
+
+* 特点：通过bindService()启动，允许多个组件（比如Activity）绑定到同一个Service。当所有组件解绑后，Service会被销毁
+
+* 适用场景：提供长期服务，比如后台计算、数据同步
+
+* 生命周期：onCreate()->onBind()->onUnbind()->onDestroy()
+
+![Service](service2.png)
+
+## 3.Service示例
+
+![Startde](service3.png)
+
+![Bound](service4.png)
