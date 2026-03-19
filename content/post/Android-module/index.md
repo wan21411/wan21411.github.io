@@ -122,8 +122,77 @@ Service有两种类型：
 
 广播分为**两种**类型：
 
-    （1）系统广播
+（1）系统广播
+
     ·特点：由系统发出，比如电池电量低、网络状态变化、屏幕开关等。
     ·比如：
-    ACTION_BATTERY_LOW:电池电量低。
-    
+        ACTION_BATTERY_LOW:电池电量低。
+        ACTION_BOOT_COMPLETED:设备启动完成。
+
+（2）自定义广播
+
+    ·特点：由应用发出，用于应用内部或应用之间的通信。
+    ·比如：在App定义一个广播，比如“任务完成”，然后在其他地方接收并处理。
+
+### 3.BroadCaseReceiver的注册方式
+
+广播接收器可以通过**两种**方式注册：
+
+* 1.静态注册
+
+在**AndroidManifest.xml**里面声明，应用为运行时也能接收到广播。
+适用场景：监听系统广播，比如设备启动完成。
+
+示例：
+```
+<receiver android:name=".MyReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+    </intent-filter>
+</receiver>
+```
+
+* 2.动态注册
+
+在代码中通过**registerReceiver()**注册，通常用于应用运行时的广播。
+适用场景：监听应用内部的广播，比如用户点击按钮后发出的广播（例如点击播放下一首音乐的按钮，播放界面接收到发出的广播后就会更新界面UI）
+
+示例：
+```
+IntentFilter filter = new IntentFilter("com.example.MY_CUSTOM_ACTION");
+registerReceiver(myReceiver, filter);
+```
+
+### 4.BroadCaseReceiver的生命周期
+
+广播接收器的生命周期很简单，主要包括两个阶段：
+
+    1.*接收广播：当广播发出时，系统会创建广播接收器的实例，并调用它的onReceive()方法。
+    2.*完成任务：onReceive()方法执行完毕之后，广播接收器的实例会被销毁。
+
+也就是说，广播接收器的生命周期很短暂，它只存在于**接收广播并处理完广播**的这段时间内。
+
+![BroadCaseReceiverLive](broadcaselive.png)
+
+### 5.BroadCaseReceiver的工作流程
+
+BroadCaseReceiver的核心类是android.content.BroadCaseReceiver,一个抽象类
+
+**广播接收器的工作流程**
+
+    （1）注册广播接收器
+        ·静态注册：由PackgeManagerService解析AndroidManifest.xml并注册。
+        ·动态注册：通过Content.registerReceiver()注册到ActivityManagerService。
+
+    （2）发送广播
+        ·通过Content.sendBroadcase()发送广播，ActivityManagerService负责分发。
+
+    （3）分发广播
+        ·BroadcaseQueue从队列中取出广播，并调用广播接收器的onReceive()方法处理。
+
+    （4）处理广播
+        ·广播接收器的onReceive()方法在运行在主线程中，不能执行耗时操作。
+
+![BroadCaseWork](broadcasework.png)
+
+总而言之：**BroadcastReceiver工作流程是：PMS/AMS管理注册 → AMS接收广播并匹配 → BroadcastQueue按类型分发 → 应用主线程执行onReceive（10秒内必须返回）→ 整个过程通过Binder IPC跨进程通信，系统通过超时机制防止接收器阻塞主线程。**
